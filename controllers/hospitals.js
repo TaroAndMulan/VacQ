@@ -1,4 +1,4 @@
-const Hospital = require("../models/Hospital.js");
+const Hospital = require("../models/Hospital");
 
 
 //@desc     Get all hospitals 
