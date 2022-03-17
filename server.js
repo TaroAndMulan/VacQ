@@ -8,6 +8,8 @@ connectDB();
 
 const hospitals = require('./routes/hospitals');
 const auth = require('./routes/auth')
+const appointments = require('./routes/appointments');
+
 const app = express();
 //add cookie parse
 app.use(cookieParser());
@@ -17,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/v1/hospitals',hospitals);
 app.use('/api/v1/auth',auth)
+app.use('/api/v1/appointments',appointments);
 
 
 const PORT = process.env.PORT || 5000;
