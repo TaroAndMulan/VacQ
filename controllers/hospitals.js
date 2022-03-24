@@ -1,5 +1,17 @@
 const Hospital = require("../models/Hospital");
+const vacCenter= require("../models/VacCenter");
 
+
+exports.getVacCenters = (req,res,next) => {
+    vacCenter.getAll((err,data)=>{
+        if(err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occured while retrieving Vaccine Centers"
+            });
+        else res.send(data);
+    });
+};
 
 //@desc     Get all hospitals 
 //@route    Get /api/v1/hospitals
@@ -63,7 +75,7 @@ exports.getHospitals = async (req,res,next)=>{
     } catch(err){
         res.status(400).json({success:false});
     }
-}
+};
 
 //@desc     Get single hospital
 //@route    Get /api/v1/hospitals/:id
@@ -80,7 +92,7 @@ exports.getHospital = async (req,res,next)=>{
     } catch(err){
         res.status(400).json({success:false});
     }
-}
+};
 
 //@desc     Create hospital
 //@route    POST /api/v1/hospitals
@@ -89,7 +101,7 @@ exports.getHospital = async (req,res,next)=>{
 exports.createHospitals = async (req,res,next)=>{
     const hospital = await Hospital.create(req.body);
     res.status(201).json({success:true,data:hospital});
-}
+};
 
 //@desc     Update single hospital
 //@route    PUT /api/v1/hospitals/:id
@@ -113,7 +125,7 @@ exports.updateHospital = async (req,res,next)=>{
         return res.status(400).json({success:false});
     }
    
-}
+};
 
 //@desc     Delete single hospital
 //@route    DELETE /api/v1/hospitals/:id
@@ -134,5 +146,6 @@ exports.deleteHospital = async (req,res,next)=>{
         res.status(200).json({success:false});
     }
     
-}
+};
+
 
