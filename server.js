@@ -9,6 +9,9 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
 
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
+
 dotenv.config({path:'./config/config.env'});
 
 connectDB();
@@ -18,6 +21,28 @@ const auth = require('./routes/auth')
 const appointments = require('./routes/appointments');
 
 const app = express();
+
+const swaggerOptions= {
+    swaggerDefinition:{
+        openapi: '3.0.0',
+        info: {
+            title: 'Library API',
+            version: '1.0.0',
+            desription: 'A simple Express VacQ API'
+        },
+        servers: [
+          {
+              url:'http://localhost:5000/api/v1'
+          }  
+        ],
+    },
+
+    apis:['./routes/*.js'],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
+
 //add cookie parse
 app.use(cookieParser());
 
